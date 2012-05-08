@@ -37,3 +37,11 @@ gem "rolify", ">= 3.1.0"
 gem "bootstrap-sass", ">= 2.0.1"
 gem "simple_form"
 gem "will_paginate", ">= 3.0.3"
+
+
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
+
+
+gem "active_link_to"
+gem "pry"
