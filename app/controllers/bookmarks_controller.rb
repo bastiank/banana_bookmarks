@@ -4,7 +4,13 @@ class BookmarksController < ApplicationController
   
   # GET /bookmarks
   # GET /bookmarks.json
-  def index
+  def index                          
+    if params[:search]
+      @search = @bookmarks.search do
+        fulltext params[:search]
+      end  
+      @bookmarks = @search.results
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @bookmarks }

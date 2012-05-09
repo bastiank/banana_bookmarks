@@ -45,3 +45,11 @@ gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in developm
 
 gem "active_link_to"
 gem "pry"
+gem "mechanize"
+gem "awesome_print"
+gem 'progress_bar'
+gem 'pismo'
+gem "httparty"
+
+gem 'acts-as-taggable-on', '~> 2.2.2'
+gem 'pry-rails', :group => :development
