@@ -2,7 +2,7 @@ require "bundler/capistrano"
 
 #default_environment['SSL_CERT_FILE'] = "/srv/runner/cacert.pem"
 
-set :rvm_ruby_string, 'ruby-1.9.2-p180'
+set :rvm_ruby_string, 'ruby-1.9.2-p320'
 require "rvm/capistrano"
 
 
