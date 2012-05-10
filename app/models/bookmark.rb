@@ -91,6 +91,6 @@ class Bookmark < ActiveRecord::Base
   end
 
   def pismo_doc
-     @pismo_doc ||= Pismo::Document.new(self.page_dump || self.url)
+     @pismo_doc ||= Pismo::Document.new(self.page_dump.force_encoding('UTF-8')  || self.url)
   end
 end
