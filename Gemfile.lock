@@ -104,6 +104,7 @@ GEM
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
     json (1.7.1)
+    kgio (2.7.4)
     libnotify (0.7.2)
     libv8 (3.3.10.4)
     machinist (2.0)
@@ -177,6 +178,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.6)
+    raindrops (0.8.0)
     rake (0.9.2.2)
     rb-inotify (0.8.8)
       ffi (>= 0.5.0)
@@ -244,7 +246,10 @@ GEM
     unf (0.0.5)
       unf_ext
     unf_ext (0.0.4)
-    unicron (0.1.0)
+    unicorn (4.3.1)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     warden (1.1.1)
       rack (>= 1.0)
     webrobots (0.0.13)
@@ -292,5 +297,5 @@ DEPENDENCIES
   sunspot_solr
   therubyracer
   uglifier (>= 1.0.3)
-  unicron
+  unicorn
   will_paginate (>= 3.0.3)

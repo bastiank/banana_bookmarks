@@ -54,7 +54,7 @@ gem "httparty"
 gem 'acts-as-taggable-on', '~> 2.2.2'
 gem 'pry-rails', :group => :development
 
-gem "unicron"
+gem "unicorn"
 
 gem "capistrano"
 gem 'rvm-capistrano'
