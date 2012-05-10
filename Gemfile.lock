@@ -244,6 +244,7 @@ GEM
     unf (0.0.5)
       unf_ext
     unf_ext (0.0.4)
+    unicron (0.1.0)
     warden (1.1.1)
       rack (>= 1.0)
     webrobots (0.0.13)
@@ -291,4 +292,5 @@ DEPENDENCIES
   sunspot_solr
   therubyracer
   uglifier (>= 1.0.3)
+  unicron
   will_paginate (>= 3.0.3)
