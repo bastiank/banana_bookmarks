@@ -47,6 +47,7 @@ class Bookmark < ActiveRecord::Base
   
   def set_title
     self.title = pismo_doc.html_title || pismo_doc.title
+    self.title = self.title.force_encoding('UTF-8')
   end
 
   def set_page_dump
@@ -54,17 +55,18 @@ class Bookmark < ActiveRecord::Base
   end
 
   def set_raw_text
-    self.raw_text = pismo_doc.reader_doc.raw_content.gsub(/<\/?[^>]*>/, " ").gsub(/\s+/, ' ')
+    self.raw_text = pismo_doc.reader_doc.raw_content.gsub(/<\/?[^>]*>/, " ").gsub(/\s+/, ' ').force_encoding('UTF-8')
   end
   
   def set_content_text
     self.content_text = pismo_doc.reader_doc.content(true)
     self.content_text = self.raw_text if self.content_text.blank?
-    self.content_text
+    self.content_text = self.content_text.force_encoding('UTF-8') unless self.content_text.blank?
   end
 
   def set_description
     self.description = pismo_doc.description || pismo_doc.sentences || content_text.try("[]",0..160)
+    self.description = self.description.force_encoding('UTF-8')
   end
 
   #def text
