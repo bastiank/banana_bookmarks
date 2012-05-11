@@ -15,6 +15,8 @@
         %br
           =truncate bookmark.description, :length => 250
         %br
+          =render "tags", :bookmark => bookmark
+        %br
         =link_to bookmark.url, bookmark.url
       %td
         = link_to bookmark, :confirm => 'Are you sure?', :method => :delete, :class => [:btn, "btn-danger"] do

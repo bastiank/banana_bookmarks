@@ -1,18 +1,15 @@
 %p#notice= notice
 
+%h1= @bookmark.title
 %p
-  %b User:
-  = @bookmark.user
+  =link_to @bookmark.url, @bookmark.url
 %p
-  %b Url:
-  = @bookmark.url
-
+  =render "tags", :bookmark => @bookmark
+%h2 Description
 .well
   =simple_format(@bookmark.description)
 
 .well
   =raw @bookmark.pismo_doc.html_body
 
-= link_to 'Edit', edit_bookmark_path(@bookmark)
-\|
 = link_to 'Back', bookmarks_path

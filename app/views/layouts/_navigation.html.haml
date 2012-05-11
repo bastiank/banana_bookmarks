@@ -1,9 +1,11 @@
 = link_to "Bookmarks", root_path, :class => 'brand'
 %ul.nav
   - if user_signed_in?
+    =active_link_to 'New Bookmark', new_bookmark_path, :wrap_tag => :li
+%ul.nav.pull-right
+  - if user_signed_in?
     =active_link_to('Edit account', edit_user_registration_path, wrap_tag: :li)
     =active_link_to('Admin', users_path, wrap_tag: :li) if current_user.has_role? :admin
-    =active_link_to 'New Bookmark', new_bookmark_path, :wrap_tag => :li
 
     %li
       = link_to('Logout', destroy_user_session_path, :method=>'delete')

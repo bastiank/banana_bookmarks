@@ -1,0 +1,6 @@
+-bookmark.tags.each do |tag|
+  =link_to bookmarks_path(:search => tag.to_s) do
+    -if params[:search].eql? tag.to_s 
+      %span.label.label-important= tag.to_s
+    -else  
+      %span.label= tag.to_s
