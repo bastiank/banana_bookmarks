@@ -54,7 +54,8 @@ class Bookmark < ActiveRecord::Base
   end
 
   def set_page_dump
-    self.page_dump = page.content.encode('UTF-8', page.content.encoding, :invalid => :replace, :undef => :replace)
+     charset = page.meta_charset.first rescue "UTF-8"
+    self.page_dump = page.content.force_encoding(charset).encode#('UTF-8', :invalid => :replace, :undef => :replace)
   end
 
 
