@@ -4,7 +4,7 @@ class Bookmark < ActiveRecord::Base
 
   validates_presence_of :user_id
   
-  after_create :load_meta_data
+  after_create :load_meta_data!
 
   acts_as_taggable
 
@@ -25,11 +25,14 @@ class Bookmark < ActiveRecord::Base
   def load_meta_data
     self.set_url_after_redirect
     self.set_page_dump
-    self.set_raw_text
     self.set_title
     self.set_tags
     self.set_description
-    self.set_content_text
+  end
+
+  def load_meta_data!
+    load_meta_data
+    self.save
   end
 
   def set_url_after_redirect
@@ -51,33 +54,22 @@ class Bookmark < ActiveRecord::Base
   end
 
   def set_page_dump
-    self.page_dump = page.content.force_encoding("UTF-8")
+    self.page_dump = page.content.encode('UTF-8', page.content.encoding, :invalid => :replace, :undef => :replace)
   end
 
-  def set_raw_text
-    self.raw_text = pismo_doc.reader_doc.raw_content.gsub(/<\/?[^>]*>/, " ").gsub(/\s+/, ' ').force_encoding('UTF-8')
-  end
-  
-  def set_content_text
-    self.content_text = pismo_doc.reader_doc.content(true)
-    self.content_text = self.raw_text if self.content_text.blank?
-    self.content_text = self.content_text.force_encoding('UTF-8') unless self.content_text.blank?
-  end
 
   def set_description
     self.description = pismo_doc.description || pismo_doc.sentences || content_text.try("[]",0..160)
     self.description = self.description.force_encoding('UTF-8')
   end
-
-  #def text
-  #  text_array = []
-  #  page.parser.traverse do |element|
-  #    if element.text? and not element.text =~ /^\s*$/
-  #      text_array << element.text
-  #    end
-  #  end
-  #  return text_array.join(" ")
-  #end
+  
+  def raw_text
+    pismo_doc.reader_doc.raw_content.gsub(/<\/?[^>]*>/, " ").gsub(/\s+/, ' ')
+  end
+  
+  def content_text
+    return pismo_doc.reader_doc.content(true) || self.raw_text 
+  end
 
   #private
   def mechanize_agent
@@ -91,6 +83,6 @@ class Bookmark < ActiveRecord::Base
   end
 
   def pismo_doc
-     @pismo_doc ||= Pismo::Document.new(self.page_dump.force_encoding('UTF-8')  || self.url)
+    @pismo_doc ||= Pismo::Document.new(self.page_dump)
   end
 end
