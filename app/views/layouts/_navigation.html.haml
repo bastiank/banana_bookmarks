@@ -2,6 +2,14 @@
 %ul.nav
   - if user_signed_in?
     =active_link_to 'New Bookmark', new_bookmark_path, :wrap_tag => :li
+
+= form_tag bookmarks_path, :method => :get, :class => "navbar-search" do
+  =text_field_tag :search, params[:search], :class => "search-query", :placeholder => "Search"
+
+%ul.nav
+  %li
+    =link_to "Show All", bookmarks_path unless params[:search].blank?
+
 %ul.nav.pull-right
   - if user_signed_in?
     =active_link_to('Edit account', edit_user_registration_path, wrap_tag: :li)
